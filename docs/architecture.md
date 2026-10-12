@@ -19,7 +19,21 @@
 - DB can handle metadata easily, no need for S3 for text notes.
 
 ## Architecture Diagram
-
+[ Client - Browser index.html + api.js ]
+        |
+        v
+[ CDN - CloudFront ]
+        |
+        v
+[ Load Balancer - ALB ]
+     /      |      \
+[ App S1 ] [ App S2 ] [ App S3 ]
+        |
+        v
+[ Cache - Redis ]   [ Queue - SQS + Worker ]
+        |
+        v
+[ Primary DB ] -> [ Read Replica ]
 ## Component Definitions
 - Client index.html + api.js: Browser app that validates title before request, uses textContent to prevent XSS, manages pending/success/error states for UX.
 - CDN CloudFront: Caches GET responses at edge for 60s, offloads 80% of 2893 RPS read traffic.
