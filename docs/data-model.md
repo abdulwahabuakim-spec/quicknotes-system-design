@@ -58,3 +58,4 @@ BEGIN;
 INSERT INTO notes (user_id, title, content) VALUES ('user-uuid', 'Meeting', 'Discuss') RETURNING id;
 INSERT INTO note_tags (note_id, tag_id) VALUES ('note-uuid', 'tag-uuid');
 COMMIT;
+We choose SQL because: 1. Relations with FK, 2. JOINs for tags, 3. ACID, 4. GIN search indexes.
